@@ -35,6 +35,11 @@
 			</dict>
 		</dict>
 	</dict>
+	<key>NSCameraUsageDescription</key>
+	<string>Application needs access to your Camera.</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>Application needs access to your Microphone.</string>
+
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string></string>
 	<key>UILaunchStoryboardName</key>

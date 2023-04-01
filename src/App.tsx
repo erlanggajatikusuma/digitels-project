@@ -2,6 +2,7 @@ import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {DefaultTheme, NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import React from 'react';
+import {ProfileNavigator} from './navigators';
 // import {HomeNavigator} from './home/home-navigator';
 // import {LoginNavigator} from './login/login-navigator';
 import {navigationRef} from './navigators/navigation-utilities';
@@ -12,6 +13,7 @@ export type NavigatorParamList = {
   'App.Stack': undefined;
   'Login.Stack': undefined;
   'Home.Stack': undefined;
+  'Profile.Stack': undefined;
 };
 
 export type AppNavigatorParamList = {
@@ -58,6 +60,8 @@ const App = (props: NavigationProps) => {
         }}
         initialRouteName="App.Stack">
         <Stack.Screen name="App.Stack">{AppNavigator_}</Stack.Screen>
+        <Stack.Screen name="Profile.Stack">{ProfileNavigator}</Stack.Screen>
+
         {/* <Stack.Screen name="Login.Stack">{LoginNavigator}</Stack.Screen> */}
         {/* <Stack.Screen name="Home.Stack">{HomeNavigator}</Stack.Screen> */}
       </Stack.Navigator>
