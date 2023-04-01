@@ -10,6 +10,7 @@ import {
   Alert,
   Animated,
   LayoutChangeEvent,
+  Platform,
   StatusBar,
   StyleSheet,
   TextStyle,
@@ -54,6 +55,7 @@ import {
   SAFE_AREA_PADDING,
 } from '../../theme';
 import {goBack} from '../../navigators';
+import RNFS from 'react-native-fs';
 // import {StatusBarBlurBackground} from "./status-bar-blur-background/status-bar-blur-background";
 
 const SCALE_FULL_ZOOM = 3;
@@ -259,9 +261,24 @@ export const CameraScreen: FC = props => {
   }, []);
 
   const onMediaCaptured = useCallback(
-    (media: PhotoFile | VideoFile, type: 'photo' | 'video') => {
+    async (media: PhotoFile | VideoFile, type: 'photo' | 'video') => {
       console.log(`Media captured! ${JSON.stringify(media)}`);
-      // return Alert.alert("Taken", JSON.stringify(media), [{onPress: onBack}]);
+      let {path} = media; // extracted from PhotoFile returned from capture
+      const filePath = `file:/${path}`;
+      const pathSegments = filePath.split('/');
+      const fileName = pathSegments[pathSegments.length - 1];
+      const dir =
+        Platform.OS !== 'ios'
+          ? RNFS.DownloadDirectoryPath
+          : RNFS.DocumentDirectoryPath;
+      const moved = await RNFS.moveFile(path, `${dir}/${fileName}`)
+        .then(() => {
+          Alert.alert('Taken', 'Photo successfully saved', [{onPress: goBack}]);
+        })
+        .catch(() => {
+          Alert.alert('Failed', 'Photo failed to saved');
+        });
+      return moved;
     },
     [],
   );
@@ -303,7 +320,7 @@ export const CameraScreen: FC = props => {
     'worklet';
     // const values = examplePlugin(frame);
     const values = frame;
-    console.log(`Return FrameProcessor Values: ${JSON.stringify(values)}`);
+    // console.log(`Return FrameProcessor Values: ${JSON.stringify(values)}`);
     // return Alert.alert("Taken", JSON.stringify(values), [{onPress: onBack}]);
   }, []);
 
