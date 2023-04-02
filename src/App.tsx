@@ -2,7 +2,7 @@ import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {DefaultTheme, NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import React from 'react';
-import {ProfileNavigator} from './navigators';
+import {HomeNavigator, ProfileNavigator} from './navigators';
 // import {HomeNavigator} from './home/home-navigator';
 // import {LoginNavigator} from './login/login-navigator';
 import {navigationRef} from './navigators/navigation-utilities';
@@ -54,16 +54,26 @@ const App = (props: NavigationProps) => {
     <NavigationContainer ref={navigationRef} theme={DefaultTheme} {...props}>
       <Stack.Navigator
         screenOptions={{
-          headerShown: false,
           headerBackTitleVisible: false,
           headerTitleAlign: 'left',
         }}
         initialRouteName="App.Stack">
-        <Stack.Screen name="App.Stack">{AppNavigator_}</Stack.Screen>
+        <Stack.Screen name="App.Stack" options={{headerShown: false}}>
+          {AppNavigator_}
+        </Stack.Screen>
+        <Stack.Screen
+          name="Home.Stack"
+          options={{
+            title: '',
+            headerBackTitleVisible: false,
+            headerTintColor: color.black,
+            headerShadowVisible: false,
+          }}>
+          {HomeNavigator}
+        </Stack.Screen>
         <Stack.Screen name="Profile.Stack">{ProfileNavigator}</Stack.Screen>
 
         {/* <Stack.Screen name="Login.Stack">{LoginNavigator}</Stack.Screen> */}
-        {/* <Stack.Screen name="Home.Stack">{HomeNavigator}</Stack.Screen> */}
       </Stack.Navigator>
     </NavigationContainer>
   );

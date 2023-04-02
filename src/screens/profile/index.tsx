@@ -38,6 +38,7 @@ export const ProfileScreen: FC = props => {
       <FieldInput label="Email" validate="email" />
       <FieldInput label="Password" validate="password" />
       <Button text="camera" onPress={onNavigate} />
+      <Button preset="outline" text="show toast" onPress={onClose} />
       <Toast visible={isVisible} onBackdropPress={onClose} onCancel={onClose} />
     </Screen>
   );
