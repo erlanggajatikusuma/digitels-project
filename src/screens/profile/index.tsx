@@ -1,7 +1,7 @@
 import React, {FC, useEffect, useState} from 'react';
 import {Text, ViewStyle} from 'react-native';
 import {Camera, useCameraDevices} from 'react-native-vision-camera';
-import {Button, FieldInput, Screen} from '../../components';
+import {Button, FieldInput, Screen, Toast} from '../../components';
 import {navigate} from '../../navigators';
 
 const ROOT: ViewStyle = {
@@ -13,6 +13,7 @@ export const ProfileScreen: FC = props => {
   const device = devices.back;
 
   const [hasPermission, setHasPermission] = useState<boolean>(false);
+  const [isVisible, setIsVisible] = useState<boolean>(false);
 
   useEffect(() => {
     accessCamera();
@@ -29,13 +30,15 @@ export const ProfileScreen: FC = props => {
     }
   };
 
+  const onClose = () => setIsVisible(!isVisible);
+
   return (
     <Screen preset="scroll" style={ROOT}>
-      <Text>Profile Screen</Text>
       <FieldInput label="Name" />
       <FieldInput label="Email" validate="email" />
       <FieldInput label="Password" validate="password" />
       <Button text="camera" onPress={onNavigate} />
+      <Toast visible={isVisible} onBackdropPress={onClose} onCancel={onClose} />
     </Screen>
   );
 };

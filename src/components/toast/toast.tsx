@@ -1,6 +1,5 @@
 import React, {FC} from 'react';
 import {
-  Appearance,
   Dimensions,
   GestureResponderEvent,
   Modal as ModalReact,
@@ -11,6 +10,7 @@ import {
   View,
   ViewStyle,
 } from 'react-native';
+import {CloseIcon} from '../../assets';
 import {color} from '../../theme';
 import {Button} from '../button/button';
 import {Text} from '../text/text';
@@ -28,10 +28,9 @@ const CENTERED: ViewStyle = {
 export const MODAL_VIEW: ViewStyle = {
   backgroundColor: color.white,
   width: width - 25,
-  height: '30%',
   alignItems: 'center',
   justifyContent: 'center',
-  borderRadius: 8,
+  borderRadius: 3,
   padding: 16,
   paddingVertical: 10,
   shadowColor: '#000',
@@ -48,7 +47,7 @@ const BUTTON_LOGOUT_CONTAINER: ViewStyle = {
   flexDirection: 'row',
   justifyContent: 'space-between',
   width: '100%',
-  padding: 12,
+  // padding: 12,
 };
 
 const BUTTON_LOGOUT_MODAL: ViewStyle = {
@@ -58,11 +57,22 @@ const BUTTON_LOGOUT_MODAL: ViewStyle = {
 };
 
 const BUTTON_BACK_MODAL: ViewStyle = {
-  ...BUTTON_LOGOUT_MODAL,
-  paddingVertical: 9,
+  // ...BUTTON_LOGOUT_MODAL,
+  // backgroundColor: 'green',
+  // paddingVertical: 9,
 };
 
-interface ModalReactProps extends ModalProps {
+const PROGRESS_BAR: ViewStyle = {
+  height: 5,
+  flexDirection: 'row',
+  width: '100%',
+  backgroundColor: 'white',
+  borderColor: '#000',
+  // borderWidth: 2,
+  // borderRadius: 5,
+};
+
+interface ToastModal extends ModalProps {
   colorScheme?: 'light' | 'dark';
   title?: string;
   subtitle?: string;
@@ -70,7 +80,6 @@ interface ModalReactProps extends ModalProps {
   onRequestClose?: (event: NativeSyntheticEvent<any>) => void | undefined;
   onBackdropPress?: (event: GestureResponderEvent) => void | null | undefined;
   onCancel?: () => void;
-  onConfirm?: () => void;
   style?: StyleProp<ViewStyle>;
   overlayStyle?: StyleProp<ViewStyle>;
 }
@@ -78,75 +87,99 @@ interface ModalReactProps extends ModalProps {
 interface ContentProps {
   colorScheme?: 'light' | 'dark';
   title?: string;
-  subtitle?: string;
-  btnCancel?: string;
-  btnConfirm?: string;
   onCancel?: () => void;
-  onConfirm?: () => void;
 }
 
 const Content: FC<ContentProps> = props => {
   const {
-    colorScheme = Appearance.getColorScheme() || 'light',
-    title = 'Are you sure?',
-    subtitle,
-    btnCancel = 'No',
-    btnConfirm = 'Yes',
+    colorScheme = 'light',
+    title = 'Something went wrong!',
     onCancel,
-    onConfirm,
   } = props;
   return (
     <>
-      <View style={{marginBottom: 16}}>
-        {title && <Text preset="medium3" color={color.gray900} text={title} />}
-        {subtitle && (
-          <Text preset="body1" colorScheme={colorScheme} text={subtitle} />
-        )}
-      </View>
       <View style={BUTTON_LOGOUT_CONTAINER}>
+        {title && <Text preset="medium3" color={color.gray900} text={title} />}
         <Button
           testID="chatme:id/cancel-button"
-          text={btnCancel}
-          preset="outline"
+          preset="link"
           colorScheme={colorScheme}
-          style={BUTTON_BACK_MODAL}
-          onPress={onCancel}
-        />
-        <Button
-          testID="chatme:id/confirm-button"
-          text={btnConfirm}
-          preset="primary"
-          colorScheme={colorScheme}
-          style={BUTTON_LOGOUT_MODAL}
-          onPress={onConfirm}
-        />
+          onPress={onCancel}>
+          <CloseIcon />
+        </Button>
       </View>
     </>
   );
 };
 
-export const Modal: FC<ModalReactProps> = props => {
+export const Toast: FC<ToastModal> = props => {
   const {
     colorScheme = 'light',
     title,
-    subtitle,
     onRequestClose,
     onBackdropPress,
     onCancel,
-    onConfirm,
     style,
     overlayStyle,
     children = (
-      <Content
-        title={title}
-        subtitle={subtitle}
-        colorScheme={colorScheme}
-        onCancel={onCancel}
-        onConfirm={onConfirm}
-      />
+      <Content title={title} colorScheme={colorScheme} onCancel={onCancel} />
     ),
     ...rest
   } = props;
+
+  // const countInterval = useRef<number>(null);
+  // const [count, setCount] = useState<number>(0);
+  // const stopInterval = useCallback(() => {
+  //   if (countInterval.current) {
+  //     // clearInterval(countInterval);
+  //     clearInterval(countInterval.current);
+  //     countInterval.current = null;
+  //   }
+  // }, []);
+
+  // const startInterval = useCallback(() => {
+  //   if (countInterval.current) {
+  //     stopInterval();
+  //   }
+  //   countInterval.current = setInterval(() => setCount(old => old + 34), 1000);
+  //   return stopInterval;
+  // }, [stopInterval]);
+
+  // const animation = useMemo(() => new Animated.Value(0), []);
+
+  // const animatedWidth = animation.interpolate({
+  //   inputRange: [0, 100],
+  //   outputRange: ['0%', '100%'],
+  //   extrapolate: 'clamp',
+  // });
+
+  // useEffect(() => {
+  //   if (timeout) {
+  //     startInterval();
+  //     setIsVisible(true);
+  //     setTimeout(() => {
+  //       setIsVisible(false);
+  //     }, 3300);
+  //   }
+  // }, [startInterval, timeout]);
+  // const load = useCallback(
+  //   (c: number) => {
+  //     Animated.timing(animation, {
+  //       toValue: c,
+  //       duration: 50,
+  //       useNativeDriver: false,
+  //     }).start();
+  //   },
+  //   [animation],
+  // );
+
+  // useEffect(() => {
+  //   load(count);
+  //   if (count >= 100) {
+  //     setCount(100);
+  //     stopInterval();
+  //   }
+  // }, [count, load, stopInterval]);
 
   return (
     <ModalReact
@@ -161,6 +194,14 @@ export const Modal: FC<ModalReactProps> = props => {
           style={[MODAL_VIEW, style]}>
           {children}
         </View>
+        {/* <View style={PROGRESS_BAR}>
+          <Animated.View
+            style={[
+              StyleSheet.absoluteFill,
+              {backgroundColor: 'red', width: animatedWidth},
+            ]}
+          />
+        </View> */}
       </Pressable>
     </ModalReact>
   );

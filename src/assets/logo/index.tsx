@@ -1,5 +1,5 @@
-import React from "react";
-import {ColorValue, StyleProp, ViewStyle} from "react-native";
+import React from 'react';
+import {ColorValue, StyleProp, ViewStyle} from 'react-native';
 import Svg, {
   G,
   Mask,
@@ -10,7 +10,7 @@ import Svg, {
   LinearGradient,
   Stop,
   Circle,
-} from "react-native-svg";
+} from 'react-native-svg';
 
 export interface LogoProps {
   width?: number | string;
@@ -62,7 +62,7 @@ export const SplashLogo = (props: LogoProps) => {
 };
 
 export const GoogleLogo = (props: LogoProps) => {
-  const {width = 24, height = 24, color = "#7E98DF"} = props;
+  const {width = 24, height = 24, color = '#7E98DF'} = props;
   return (
     <Svg
       width={width}
@@ -80,7 +80,7 @@ export const GoogleLogo = (props: LogoProps) => {
 };
 
 export const Back = (props: LogoProps) => {
-  const {width = 16, height = 16, color = "white"} = props;
+  const {width = 16, height = 16, color = 'white'} = props;
   return (
     <Svg
       width={width}
@@ -140,7 +140,7 @@ export const Menu = () => (
 );
 
 export const VertIcon = (props: LogoProps) => {
-  const {width = 4, height = 16, color = "#2675EC"} = props;
+  const {width = 4, height = 16, color = '#2675EC'} = props;
   return (
     <Svg
       width={width}
@@ -159,7 +159,7 @@ export const VertIcon = (props: LogoProps) => {
 };
 
 export const NotificationIcon = (props: LogoProps) => {
-  const {width = 20, height = 20, color = "white"} = props;
+  const {width = 20, height = 20, color = 'white'} = props;
   return (
     <Svg
       width={width}
@@ -230,7 +230,7 @@ export const ChatIcon = (props: LogoProps) => {
 };
 
 export const EmailIcon = (props: LogoProps) => {
-  const {width = 24, height = 24, color = "black"} = props;
+  const {width = 24, height = 24, color = 'black'} = props;
   return (
     <Svg
       version="1.1"
@@ -269,7 +269,7 @@ export const EmailIcon = (props: LogoProps) => {
 };
 
 export const PhoneIcon = (props: LogoProps) => {
-  const {width = 24, height = 24, color = "black"} = props;
+  const {width = 24, height = 24, color = 'black'} = props;
 
   return (
     <Svg
@@ -287,7 +287,7 @@ export const PhoneIcon = (props: LogoProps) => {
 };
 
 export const ContactIcon = (props: LogoProps) => {
-  const {width = 22, height = 16, color = "#1D1D1D"} = props;
+  const {width = 22, height = 16, color = '#1D1D1D'} = props;
   return (
     <Svg
       width={width}
@@ -308,11 +308,12 @@ export const ContactIcon = (props: LogoProps) => {
               id="-Round-/-Social-/-person_add"
               transform="translate(578.000000, 54.000000)">
               <G>
-                <Polygon id="Path" points="0 0 24 0 24 24 0 24"></Polygon>
+                <Polygon id="Path" points="0 0 24 0 24 24 0 24" />
                 <Path
                   d="M15,12 C17.21,12 19,10.21 19,8 C19,5.79 17.21,4 15,4 C12.79,4 11,5.79 11,8 C11,10.21 12.79,12 15,12 Z M6,10 L6,8 C6,7.45 5.55,7 5,7 C4.45,7 4,7.45 4,8 L4,10 L2,10 C1.45,10 1,10.45 1,11 C1,11.55 1.45,12 2,12 L4,12 L4,14 C4,14.55 4.45,15 5,15 C5.55,15 6,14.55 6,14 L6,12 L8,12 C8.55,12 9,11.55 9,11 C9,10.45 8.55,10 8,10 L6,10 Z M15,14 C12.33,14 7,15.34 7,18 L7,19 C7,19.55 7.45,20 8,20 L22,20 C22.55,20 23,19.55 23,19 L23,18 C23,15.34 17.67,14 15,14 Z"
                   id="🔹-Icon-Color"
-                  fill={color}></Path>
+                  fill={color}
+                />
               </G>
             </G>
           </G>
@@ -323,7 +324,7 @@ export const ContactIcon = (props: LogoProps) => {
 };
 
 export const LogoutIcon = (props: LogoProps) => {
-  const {width = 20, height = 20, color = "black"} = props;
+  const {width = 20, height = 20, color = 'black'} = props;
   return (
     <Svg
       width={width}
@@ -344,7 +345,7 @@ export const LogoutIcon = (props: LogoProps) => {
 };
 
 export const ProfileIcon = (props: LogoProps) => {
-  const {width = 22, height = 22, color = "black"} = props;
+  const {width = 22, height = 22, color = 'black'} = props;
   return (
     <Svg
       width={width}
@@ -375,7 +376,7 @@ export const ProfileIcon = (props: LogoProps) => {
 };
 
 export const AccountIcon = (props: LogoProps) => {
-  const {width = 22, height = 22, color = "#000000"} = props;
+  const {width = 22, height = 22, color = '#000000'} = props;
   return (
     <Svg
       width={width}
@@ -386,7 +387,7 @@ export const AccountIcon = (props: LogoProps) => {
       // xmlns:sketch="http://www.bohemiancoding.com/sketch/ns"
       // xmlns:xlink="http://www.w3.org/1999/xlink"
     >
-      <Defs></Defs>
+      <Defs />
       <G
         id="Page-1"
         stroke="none"
@@ -403,7 +404,7 @@ export const AccountIcon = (props: LogoProps) => {
             d="M16,21.9146472 L16,24.5089948 C16,24.7801695 16.2319336,25 16.5,25 C16.7761424,25 17,24.7721195 17,24.5089948 L17,21.9146472 C17.5825962,21.708729 18,21.1531095 18,20.5 C18,19.6715728 17.3284272,19 16.5,19 C15.6715728,19 15,19.6715728 15,20.5 C15,21.1531095 15.4174038,21.708729 16,21.9146472 L16,21.9146472 L16,21.9146472 Z M15,22.5001831 L15,24.4983244 C15,25.3276769 15.6657972,26 16.5,26 C17.3284271,26 18,25.3288106 18,24.4983244 L18,22.5001831 C18.6072234,22.04408 19,21.317909 19,20.5 C19,19.1192881 17.8807119,18 16.5,18 C15.1192881,18 14,19.1192881 14,20.5 C14,21.317909 14.3927766,22.04408 15,22.5001831 L15,22.5001831 L15,22.5001831 Z M9,14.0000125 L9,10.499235 C9,6.35670485 12.3578644,3 16.5,3 C20.6337072,3 24,6.35752188 24,10.499235 L24,14.0000125 C25.6591471,14.0047488 27,15.3503174 27,17.0094776 L27,26.9905224 C27,28.6633689 25.6529197,30 23.991212,30 L9.00878799,30 C7.34559019,30 6,28.652611 6,26.9905224 L6,17.0094776 C6,15.339581 7.34233349,14.0047152 9,14.0000125 L9,14.0000125 L9,14.0000125 Z M10,14 L10,10.4934269 C10,6.90817171 12.9101491,4 16.5,4 C20.0825462,4 23,6.90720623 23,10.4934269 L23,14 L22,14 L22,10.5090731 C22,7.46649603 19.5313853,5 16.5,5 C13.4624339,5 11,7.46140289 11,10.5090731 L11,14 L10,14 L10,14 Z M12,14 L12,10.5008537 C12,8.0092478 14.0147186,6 16.5,6 C18.9802243,6 21,8.01510082 21,10.5008537 L21,14 L12,14 L12,14 L12,14 Z M8.99742191,15 C7.89427625,15 7,15.8970601 7,17.0058587 L7,26.9941413 C7,28.1019465 7.89092539,29 8.99742191,29 L24.0025781,29 C25.1057238,29 26,28.1029399 26,26.9941413 L26,17.0058587 C26,15.8980535 25.1090746,15 24.0025781,15 L8.99742191,15 L8.99742191,15 Z"
             id="lock"
             // sketch:type="MSShapeGroup"
-          ></Path>
+          />
         </G>
       </G>
     </Svg>
@@ -411,7 +412,7 @@ export const AccountIcon = (props: LogoProps) => {
 };
 
 export const Flashoff = (props: LogoProps) => {
-  const {width = 24, height = 24, color = "white"} = props;
+  const {width = 24, height = 24, color = 'white'} = props;
   return (
     <Svg
       width={width}
@@ -426,7 +427,7 @@ export const Flashoff = (props: LogoProps) => {
 };
 
 export const Flashon = (props: LogoProps) => {
-  const {width = 24, height = 24, color = "white"} = props;
+  const {width = 24, height = 24, color = 'white'} = props;
   return (
     <Svg
       width={width}
@@ -441,7 +442,7 @@ export const Flashon = (props: LogoProps) => {
 };
 
 export const CameraReverse = (props: LogoProps) => {
-  const {width = 24, height = 24, color = "white"} = props;
+  const {width = 24, height = 24, color = 'white'} = props;
 
   return (
     <Svg
@@ -457,7 +458,7 @@ export const CameraReverse = (props: LogoProps) => {
 };
 
 export const HDROn = (props: LogoProps) => {
-  const {width = 24, height = 24, color = "white"} = props;
+  const {width = 24, height = 24, color = 'white'} = props;
   return (
     <Svg
       width={width}
@@ -471,7 +472,7 @@ export const HDROn = (props: LogoProps) => {
 };
 
 export const HDROff = (props: LogoProps) => {
-  const {width = 24, height = 24, color = "white"} = props;
+  const {width = 24, height = 24, color = 'white'} = props;
   return (
     <Svg
       width={width}
@@ -485,7 +486,7 @@ export const HDROff = (props: LogoProps) => {
 };
 
 export const NightOn = (props: LogoProps) => {
-  const {width = 24, height = 24, color = "white"} = props;
+  const {width = 24, height = 24, color = 'white'} = props;
   return (
     <Svg
       width={width}
@@ -500,7 +501,7 @@ export const NightOn = (props: LogoProps) => {
 };
 
 export const NightOff = (props: LogoProps) => {
-  const {width = 24, height = 24, color = "white"} = props;
+  const {width = 24, height = 24, color = 'white'} = props;
   return (
     <Svg
       width={width}
@@ -522,7 +523,7 @@ export const NightOff = (props: LogoProps) => {
 };
 
 export const QR = (props: LogoProps) => {
-  const {width = 24, height = 24, color = "white"} = props;
+  const {width = 24, height = 24, color = 'white'} = props;
 
   return (
     <Svg
@@ -628,6 +629,20 @@ export const Empty = (props: LogoProps) => {
       />
       <Circle cx="433.63626" cy="105.17383" r="20" fill="#6c63ff" />
       <Circle cx="433.63626" cy="105.17383" r="12.18187" fill="#fff" />
+    </Svg>
+  );
+};
+
+export const CloseIcon = (props: LogoProps) => {
+  const {width = 22, height = 22, color} = props;
+  return (
+    <Svg
+      width={width}
+      height={height}
+      xmlns="http://www.w3.org/2000/svg"
+      class="ionicon"
+      viewBox="0 0 512 512">
+      <Path d="M289.94 256l95-95A24 24 0 00351 127l-95 95-95-95a24 24 0 00-34 34l95 95-95 95a24 24 0 1034 34l95-95 95 95a24 24 0 0034-34z" />
     </Svg>
   );
 };
