@@ -1,3 +1,4 @@
+import Geolocation from '@react-native-community/geolocation';
 import React, {FC, useEffect, useMemo, useRef, useState} from 'react';
 import {
   ActivityIndicator,
@@ -16,14 +17,14 @@ import MapView, {
   PROVIDER_GOOGLE,
   Region,
 } from 'react-native-maps';
-import {Screen} from '../../components';
-import Geolocation from '@react-native-community/geolocation';
+import {Button, Screen} from '../../components';
 
 const width = Dimensions.get('screen').width;
 const height = Dimensions.get('screen').height;
 
 const ROOT: ViewStyle = {
   flexGrow: 1,
+  position: 'relative',
 };
 
 const MAP: ViewStyle = {
@@ -34,6 +35,15 @@ const LOADING: ViewStyle = {
   flex: 1,
   justifyContent: 'center',
   alignItems: 'center',
+};
+
+const BTN: ViewStyle = {
+  // backgroundColor: color.white,
+  backgroundColor: 'rgba(255,255,255,0.7)',
+  position: 'absolute',
+  bottom: 15,
+  alignSelf: 'center',
+  borderRadius: 40,
 };
 
 const ASPECT_RATIO = width / height;
@@ -47,21 +57,23 @@ export const MapScreen: FC = props => {
   //   latitudeDelta: 0.01,
   //   longitudeDelta: 0.01,
   // });
-
   const [position, setPosition] = useState<any | null>(null);
   const [markers, setMarkers] = useState<Array<any>>([]);
   const [hasPermission, setHasPermission] = useState<boolean>(false);
 
   const ANDROID = Platform.OS === 'android';
   const PROVIDER = Platform.OS === 'ios' ? PROVIDER_DEFAULT : PROVIDER_GOOGLE;
+  const LATITUDE_DELTA = 0.0922;
+  const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO;
 
   const mapViewRef = useRef<MapView>(null);
   const coordinate = useMemo(() => {
     return {
       latitude: 37.78825,
       longitude: -122.4324,
-      latitudeDelta: 0.0922,
-      longitudeDelta: 0.0421,
+      latitudeDelta: LATITUDE_DELTA,
+      longitudeDelta: LONGITUDE_DELTA,
+      // longitudeDelta: 0.0421,
     };
   }, []);
 
@@ -111,12 +123,9 @@ export const MapScreen: FC = props => {
     }
   }, []);
 
-  // useEffect(() => {
-  //   console.log('ANIMATE ===');
-  //   if (hasPermission && initialRegion) {
-  //     mapViewRef.current?.animateToRegion({...position}, 100);
-  //   }
-  // }, [hasPermission, initialRegion, position]);
+  const onMyLocation = () => {
+    mapViewRef.current?.animateToRegion({...position}, 300);
+  };
 
   const onRegionChange = (reg: Region) => setRegion(reg);
 
@@ -167,6 +176,12 @@ export const MapScreen: FC = props => {
           <ActivityIndicator />
         </View>
       )}
+      <Button
+        style={BTN}
+        textColor="rgba(0,0,0,0.7)"
+        text="current location"
+        onPress={onMyLocation}
+      />
     </Screen>
   );
 };
