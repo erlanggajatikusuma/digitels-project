@@ -32,6 +32,7 @@ function ScreenWithoutScrolling(props: ScreenProps) {
       <StatusBar
         barStyle={statusBarStyle}
         backgroundColor={statusBarBackgroundColor}
+        translucent={props.statusBarTranslucent}
       />
       <SafeAreaView
         edges={props.unsafe ? ['left', 'right'] : safeAreaEdges}
@@ -43,7 +44,6 @@ function ScreenWithoutScrolling(props: ScreenProps) {
 }
 
 function ScreenWithScrolling(props: ScreenProps) {
-  // const {safeAreaEdges = ['bottom', 'top']} = props;
   const {safeAreaEdges = ['bottom']} = props;
   const preset = presets().scroll;
   const style = props.style || {};
@@ -61,12 +61,12 @@ function ScreenWithScrolling(props: ScreenProps) {
       <StatusBar
         barStyle={statusBarStyle}
         backgroundColor={statusBarBackgroundColor}
+        translucent={props.statusBarTranslucent}
       />
       <ScrollView
         ref={props.scrollViewRef}
         contentInsetAdjustmentBehavior="automatic"
         style={[preset.outer, backgroundStyle]}
-        // style={[backgroundStyle]}
         contentContainerStyle={[preset.inner, style]}
         keyboardShouldPersistTaps={props.keyboardShouldPersistTaps || 'handled'}
         showsVerticalScrollIndicator={false}>
