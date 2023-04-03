@@ -1,9 +1,10 @@
-import React, {FC, useState} from 'react';
-import {ViewStyle} from 'react-native';
+import React, {FC, useMemo, useState} from 'react';
+import {Platform, ViewStyle} from 'react-native';
 import MapView, {
   MapPressEvent,
   Marker,
   MarkerDragStartEndEvent,
+  PROVIDER_DEFAULT,
   PROVIDER_GOOGLE,
   Region,
 } from 'react-native-maps';
@@ -27,12 +28,16 @@ export const MapScreen: FC = props => {
 
   const [markers, setMarkers] = useState<Array<any>>([]);
 
-  const initialRegion = {
-    latitude: 37.78825,
-    longitude: -122.4324,
-    latitudeDelta: 0.0922,
-    longitudeDelta: 0.0421,
-  };
+  const initialRegion = useMemo(() => {
+    return {
+      latitude: 37.78825,
+      longitude: -122.4324,
+      latitudeDelta: 0.0922,
+      longitudeDelta: 0.0421,
+    };
+  }, []);
+
+  const PROVIDER = Platform.OS === 'ios' ? PROVIDER_DEFAULT : PROVIDER_GOOGLE;
 
   const onRegionChange = (reg: Region) => setRegion(reg);
 
@@ -59,10 +64,12 @@ export const MapScreen: FC = props => {
       unsafe
       style={ROOT}>
       <MapView
-        provider={PROVIDER_GOOGLE}
+        provider={PROVIDER}
         style={MAP}
         initialRegion={initialRegion}
+        region={region}
         // followsUserLocation
+        // onPoiClick={}
         onPress={onMapPress}
         onRegionChangeComplete={onRegionChange}>
         {markers.map((marker, index) => (

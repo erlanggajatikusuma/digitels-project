@@ -119,7 +119,7 @@ export const HomeScreen: FC = props => {
     return data;
   };
 
-  const getData = () => {
+  const getData = useCallback(() => {
     if (products.length !== 100) {
       getProduct(products.length, 24).then(res => {
         setProducts(val => [...val, ...res.products]);
@@ -130,7 +130,7 @@ export const HomeScreen: FC = props => {
         }
       });
     }
-  };
+  }, [products, sorted.length]);
 
   const onSearch = () => {
     if (text.length) {

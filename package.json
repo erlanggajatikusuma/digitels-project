@@ -9,7 +9,8 @@
     "start": "react-native start",
     "test": "jest",
     "device": "emulator -avd Pixel",
-    "clean:android": "cd android/ && ./gradlew clean"
+    "clean:android": "cd android/ && ./gradlew clean",
+    "clean:ios": "cd ios && xcodebuild clean && cd ../"
   },
   "dependencies": {
     "@react-navigation/bottom-tabs": "^6.5.7",
