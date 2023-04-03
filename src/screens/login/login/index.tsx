@@ -2,10 +2,22 @@ import {yupResolver} from '@hookform/resolvers/yup';
 import {CompositeScreenProps} from '@react-navigation/native';
 import React, {FC, useEffect, useMemo, useRef, useState} from 'react';
 import {FormProvider, useForm} from 'react-hook-form';
-import {TextInput, TextStyle, View, ViewStyle} from 'react-native';
+import {
+  ActivityIndicator,
+  TextInput,
+  TextStyle,
+  View,
+  ViewStyle,
+} from 'react-native';
 import * as yup from 'yup';
 import {GoogleLogo} from '../../../assets';
-import {Button, FieldInput, Screen, Text} from '../../../components';
+import {
+  Button,
+  FieldInput,
+  Screen,
+  Text,
+  Toast as Modal,
+} from '../../../components';
 import {signIn} from '../../../config/firebase';
 import {navigate} from '../../../navigators';
 import {
@@ -43,6 +55,15 @@ const LINE: ViewStyle = {
 
 const MARGIN: ViewStyle = {
   marginRight: 18,
+};
+
+const LOADING: ViewStyle = {
+  width: 72,
+  height: 72,
+  alignItems: 'center',
+  justifyContent: 'center',
+  borderRadius: 48,
+  backgroundColor: 'rgba(255, 255, 255, 0.75)',
 };
 
 export const LoginScreen: FC<CompositeScreenProps<any, any>> = props => {
@@ -91,15 +112,18 @@ export const LoginScreen: FC<CompositeScreenProps<any, any>> = props => {
     setIsError(!(isDirty && isValid));
   }, [isDirty, isValid]);
 
-  //   const handleNavigate = () => {
-  //     navigation.navigate("Login.Register");
-  //   };
-
   const handleNavigate = () => navigate('Login.Stack', 'Login.Register');
-  const onSubmit = data => console.log(data);
-  const onSignin = () => signIn('kusuma@gmail.com', '123456');
+  const onSubmit = ({email, password}) => {
+    console.log('EMAIL ===> ', email);
+    console.log('PASSWORD ===> ', password);
+    // signIn(email, password);
+    setIsLoading(true);
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 3000);
+  };
 
-  console.log('IS ERROR ===> ', isError);
+  console.log('LOADING ===> ', isLoading);
   return (
     <Screen preset="scroll" style={[ROOT, PADDING_HORIZONTAL]}>
       <Text
@@ -146,7 +170,7 @@ export const LoginScreen: FC<CompositeScreenProps<any, any>> = props => {
           text="Login"
           disabled={isError}
           loading={isLoading}
-          // onPress={handleSubmit(data => onSubmit(data))}
+          onPress={handleSubmit(data => onSubmit(data))}
           style={BUTTON}
         />
       </FormProvider>
@@ -158,8 +182,7 @@ export const LoginScreen: FC<CompositeScreenProps<any, any>> = props => {
       <Button
         preset="outline"
         style={[BUTTON, FLEX_ROW, {marginBottom: 35}]}
-        onPress={onSignin}
-        // onPress={userStore.googleSignIn}
+        // onPress={onSignin}
       >
         <GoogleLogo style={MARGIN} />
         <Text preset="medium4" text="Google" color={color.blueSecondary} />
@@ -178,6 +201,9 @@ export const LoginScreen: FC<CompositeScreenProps<any, any>> = props => {
           onPress={handleNavigate}
         />
       </View>
+      <Modal visible={isLoading} style={LOADING}>
+        <ActivityIndicator size="large" />
+      </Modal>
     </Screen>
   );
 };
