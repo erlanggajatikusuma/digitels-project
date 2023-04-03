@@ -39,6 +39,10 @@
 	<string>Application needs access to your Camera.</string>
 	<key>NSMicrophoneUsageDescription</key>
 	<string>Application needs access to your Microphone.</string>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>Access location for bluetooth usage</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Access location for bluetooth usage</string>
 
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string></string>
