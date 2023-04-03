@@ -1,9 +1,10 @@
 import {CompositeScreenProps} from '@react-navigation/native';
 import React, {FC, useCallback, useEffect} from 'react';
 import {View, ViewStyle} from 'react-native';
+import {AppStack} from '../../../app';
 import {SplashLogo} from '../../../assets';
 import {Screen} from '../../../components';
-import {HomeStack, LoginStack, resetRoot} from '../../../navigators';
+import {LoginStack, resetRoot} from '../../../navigators';
 import {color, ROOT} from '../../../theme';
 import * as storage from '../../../utils/storage';
 
@@ -18,7 +19,7 @@ export const SplashScreen: FC<CompositeScreenProps<any, any>> = props => {
   const navigateTo = useCallback(async () => {
     const user = await storage.load('user').then(res => res);
     if (user) {
-      resetRoot(HomeStack);
+      resetRoot(AppStack);
     } else {
       resetRoot(LoginStack);
     }

@@ -36,13 +36,30 @@ const AppNavigator_ = () => {
     <BottomTab.Navigator
       initialRouteName="Home.Home"
       screenOptions={{
-        headerShown: false,
+        // headerShown: false,
+        headerShadowVisible: false,
         tabBarLabelPosition: 'below-icon',
         tabBarStyle: {borderTopColor: color.light100},
       }}>
-      <BottomTab.Screen name="Home.Home" component={HomeScreen} />
-      <BottomTab.Screen name="Map.Map" component={MapScreen} />
-      <BottomTab.Screen name="Profile.Profile" component={ProfileScreen} />
+      <BottomTab.Screen
+        name="Home.Home"
+        component={HomeScreen}
+        options={{headerShown: false}}
+      />
+      <BottomTab.Screen
+        name="Map.Map"
+        component={MapScreen}
+        options={{headerShown: false}}
+      />
+      <BottomTab.Screen
+        name="Profile.Profile"
+        component={ProfileScreen}
+        options={{
+          title: 'Profile',
+          headerTintColor: color.light100,
+          headerStyle: {backgroundColor: color.primary},
+        }}
+      />
     </BottomTab.Navigator>
   );
 };

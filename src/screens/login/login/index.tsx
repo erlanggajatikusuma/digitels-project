@@ -10,6 +10,7 @@ import {
   ViewStyle,
 } from 'react-native';
 import * as yup from 'yup';
+import {AppStack} from '../../../app';
 import {GoogleLogo} from '../../../assets';
 import {
   Button,
@@ -19,7 +20,7 @@ import {
   Toast as Modal,
 } from '../../../components';
 import {signIn} from '../../../config/firebase';
-import {navigate} from '../../../navigators';
+import {navigate, resetRoot} from '../../../navigators';
 import {
   CENTER,
   color,
@@ -28,6 +29,8 @@ import {
   PADDING_HORIZONTAL,
   ROOT,
 } from '../../../theme';
+
+import * as storage from '../../../utils/storage';
 
 export const HEADER_TEXT: TextStyle = {
   paddingTop: 75,
@@ -116,14 +119,20 @@ export const LoginScreen: FC<CompositeScreenProps<any, any>> = props => {
   const onSubmit = ({email, password}) => {
     console.log('EMAIL ===> ', email);
     console.log('PASSWORD ===> ', password);
-    // signIn(email, password);
     setIsLoading(true);
-    setTimeout(() => {
-      setIsLoading(false);
-    }, 3000);
+    signIn(email, password)
+      .then(res => {
+        console.log('SIGNED ===> ', res.user);
+        storage.save('user', res.user);
+        setIsLoading(false);
+        resetRoot(AppStack);
+      })
+      .catch(err => {
+        console.log('Err ==> ', err);
+        setIsLoading(false);
+      });
   };
 
-  console.log('LOADING ===> ', isLoading);
   return (
     <Screen preset="scroll" style={[ROOT, PADDING_HORIZONTAL]}>
       <Text

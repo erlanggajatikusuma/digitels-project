@@ -1,21 +1,79 @@
-import React, {FC, useEffect, useState} from 'react';
-import {ViewStyle} from 'react-native';
+import React, {FC, useEffect, useMemo, useState} from 'react';
+import {Image, ImageStyle, TextStyle, View, ViewStyle} from 'react-native';
 import {Camera, useCameraDevices} from 'react-native-vision-camera';
-import {Button, Screen, Toast} from '../../components';
+import {EmailIcon, PhoneIcon} from '../../assets';
+import {Button, Screen, Text, Toast} from '../../components';
 import {navigate} from '../../navigators';
+import {color, FLEX_ROW, PADDING_HORIZONTAL} from '../../theme';
+import * as storage from '../../utils/storage';
 
 const ROOT: ViewStyle = {
-  paddingHorizontal: 16,
+  // paddingHorizontal: 16,
+};
+
+const IMAGE_WRAPPER: ViewStyle = {
+  borderRadius: 80,
+  borderWidth: 3,
+  padding: 1,
+  borderColor: color.gray200,
+  alignSelf: 'center',
+  position: 'absolute',
+  bottom: -45,
+};
+
+const IMAGE: ImageStyle = {
+  width: 94,
+  height: 94,
+  borderRadius: 60,
+  resizeMode: 'cover',
+  backgroundColor: color.gray200,
+};
+
+const BACKGROUND: ViewStyle = {
+  position: 'relative',
+  width: '100%',
+  height: '30%',
+  borderBottomLeftRadius: 100,
+};
+
+const TEXT: TextStyle = {
+  textAlign: 'center',
+  marginVertical: 5,
+  paddingHorizontal: 27,
+};
+
+const INFO: ViewStyle = {
+  ...PADDING_HORIZONTAL,
+  borderTopWidth: 1,
+  borderColor: color.gray200,
+  marginTop: 20,
+  flex: 1,
+  justifyContent: 'center',
+};
+
+const INFO_CONTENT: ViewStyle = {
+  ...FLEX_ROW,
+  marginVertical: 25,
+};
+
+const INFO_RIGHT: ViewStyle = {
+  flex: 1,
+  paddingHorizontal: 18,
 };
 
 export const ProfileScreen: FC = props => {
   const devices = useCameraDevices();
   const device = devices.back;
 
+  const [user, setUser] = useState<any>({});
   const [hasPermission, setHasPermission] = useState<boolean>(false);
   const [isVisible, setIsVisible] = useState<boolean>(false);
+  // const [image, setImage] = useState<null | undefined | string>(user.photoURL);
+
+  const phone = useMemo(() => user.phoneNumber || '-', [user]);
 
   useEffect(() => {
+    storage.load('user').then(res => setUser(res));
     accessCamera();
   }, []);
 
@@ -32,14 +90,55 @@ export const ProfileScreen: FC = props => {
 
   const onClose = () => setIsVisible(!isVisible);
 
+  console.log('USER STaTE ==> ', user);
+
   return (
-    <Screen preset="scroll" style={ROOT}>
-      {/* <FieldInput label="Name" />
-      <FieldInput label="Email" validate="email" />
-      <FieldInput label="Password" validate="password" /> */}
-      <Button text="camera" onPress={onNavigate} />
+    <Screen
+      preset="scroll"
+      style={ROOT}
+      backgroundBar={color.primary}
+      safeAreaEdges={['bottom']}
+      statusBar="light-content">
+      <View style={[BACKGROUND, {backgroundColor: color.primary}]}>
+        <View style={IMAGE_WRAPPER}>
+          <Image source={{uri: user.photoURL}} style={IMAGE} />
+        </View>
+      </View>
+      <View style={{alignItems: 'center', marginTop: 50}}>
+        <Text
+          preset="title2"
+          text={user.displayName}
+          ellipsizeMode="tail"
+          numberOfLines={2}
+          style={TEXT}
+        />
+        <Button text="Change Photo" onPress={onNavigate} preset="link" />
+      </View>
+      <View style={INFO}>
+        <Text preset="medium3" text="Profile Info" />
+        <View style={INFO_CONTENT}>
+          <EmailIcon width={32} height={32} />
+          <View style={INFO_RIGHT}>
+            <Text text="Email" />
+            <Text
+              text={user.email}
+              color={color.gray700}
+              ellipsizeMode="tail"
+              numberOfLines={1}
+            />
+          </View>
+        </View>
+        <View style={INFO_CONTENT}>
+          <PhoneIcon width={32} height={32} />
+          <View style={INFO_RIGHT}>
+            <Text text="Phone Number" />
+            <Text text={phone} color={color.gray700} />
+          </View>
+        </View>
+      </View>
+      {/* <Button text="camera" onPress={onNavigate} />
       <Button preset="outline" text="show toast" onPress={onClose} />
-      <Toast visible={isVisible} onBackdropPress={onClose} onCancel={onClose} />
+      <Toast visible={isVisible} onBackdropPress={onClose} onCancel={onClose} /> */}
     </Screen>
   );
 };
