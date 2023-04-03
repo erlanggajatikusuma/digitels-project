@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>860848984232-8svtq5co7mq8t328q9kdq5nb333h3dt4.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.860848984232-8svtq5co7mq8t328q9kdq5nb333h3dt4</string>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>860848984232-pb7pcigv2e3lrss986v896frab3c3opn.apps.googleusercontent.com</string>
+	<key>API_KEY</key>
+	<string>AIzaSyB0H-jAHMMk5ZLeWkalouZQBfxfClA8vd4</string>
+	<key>GCM_SENDER_ID</key>
+	<string>860848984232</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>org.reactjs.native.example.digitelsProject</string>
+	<key>PROJECT_ID</key>
+	<string>chatme-react-app-afc19</string>
+	<key>STORAGE_BUCKET</key>
+	<string>chatme-react-app-afc19.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:860848984232:ios:b52a28c2da6aee4a85b29d</string>
+	<key>DATABASE_URL</key>
+	<string>https://chatme-react-app-afc19-default-rtdb.firebaseio.com</string>
+</dict>
+</plist>

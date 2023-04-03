@@ -2,6 +2,7 @@ import {CompositeScreenProps} from '@react-navigation/native';
 import React, {FC} from 'react';
 import {TextStyle, View, ViewStyle} from 'react-native';
 import {Button, Screen, Text} from '../../../components';
+import {signIn} from '../../../config/firebase';
 import {
   CENTER,
   color,
@@ -67,7 +68,7 @@ export const LoginScreen: FC<CompositeScreenProps<any, any>> = props => {
   //   const handleNavigate = () => {
   //     navigation.navigate("Login.Register");
   //   };
-
+  const onSignin = () => signIn('kusuma@gmail.com', '123456');
   return (
     <Screen
       preset="scroll"
@@ -102,6 +103,7 @@ export const LoginScreen: FC<CompositeScreenProps<any, any>> = props => {
       <Button
         preset="outline"
         style={[BUTTON, FLEX_ROW]}
+        onPress={onSignin}
         // onPress={userStore.googleSignIn}
       >
         {/* <GoogleLogo style={MARGIN} /> */}
