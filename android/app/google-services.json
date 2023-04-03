@@ -1,0 +1,99 @@
+{
+  "project_info": {
+    "project_number": "860848984232",
+    "firebase_url": "https://chatme-react-app-afc19-default-rtdb.firebaseio.com",
+    "project_id": "chatme-react-app-afc19",
+    "storage_bucket": "chatme-react-app-afc19.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:860848984232:android:7246ef2b7e914e8285b29d",
+        "android_client_info": {
+          "package_name": "com.chatmereactapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "860848984232-qp4569elurn2pv5qkjh231d1eejma2qd.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.chatmereactapp",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
+        {
+          "client_id": "860848984232-i9cjsl4fl9dhkme2adcmru6s6f8rp231.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAN2TuHFM04GhupiBn6R6RazypFr5bvBPE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "860848984232-5ha8nrge068snvga3m76mhb0ar4b6c02.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "860848984232-g1lmec6i5tcc9j734cv85kdhu65l1iec.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "org.reactjs.native.example.chatmeReactApp"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:860848984232:android:12eb9618b7c6403885b29d",
+        "android_client_info": {
+          "package_name": "com.digitelsproject"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "860848984232-pb7pcigv2e3lrss986v896frab3c3opn.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.digitelsproject",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
+        {
+          "client_id": "860848984232-i9cjsl4fl9dhkme2adcmru6s6f8rp231.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAN2TuHFM04GhupiBn6R6RazypFr5bvBPE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "860848984232-5ha8nrge068snvga3m76mhb0ar4b6c02.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "860848984232-g1lmec6i5tcc9j734cv85kdhu65l1iec.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "org.reactjs.native.example.chatmeReactApp"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
