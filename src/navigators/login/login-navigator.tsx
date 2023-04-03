@@ -1,13 +1,12 @@
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import React from 'react';
-import {LoginScreen, SplashScreen} from '../../screens';
+import {LoginScreen, RegisterScreen, SplashScreen} from '../../screens';
 import {color} from '../../theme';
 
 export type LoginNavigatorParamList = {
   'Login.Splash': undefined;
   'Login.Login': undefined;
   'Login.Register': undefined;
-  'Login.Forgot': undefined;
 };
 
 const Stack = createNativeStackNavigator<LoginNavigatorParamList>();
@@ -45,17 +44,15 @@ export const LoginNavigator = () => {
           // headerStyle: {backgroundColor: color.primary, shadowColor: 'black'},
         }}
       />
-      {/* <Stack.Screen
+      <Stack.Screen
         name="Login.Register"
         component={RegisterScreen}
         options={{
-          title: "Register",
-          headerShown: false,
-          headerStyle: {backgroundColor: color.primary},
-          headerTintColor: color.white,
-          // headerStyle: {backgroundColor: color.primary, shadowColor: 'black'},
+          title: '',
+          headerTintColor: color.primary,
+          headerShadowVisible: false,
         }}
-      /> */}
+      />
     </Stack.Navigator>
   );
 };

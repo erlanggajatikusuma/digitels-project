@@ -13,7 +13,7 @@ const LABEL_STYLE: TextStyle = {
   textTransform: 'capitalize',
 };
 
-export interface FieldInputProps extends ViewProps {
+export interface FieldProps extends ViewProps {
   label?: string;
   labelPreset?: TextPresets;
   labelColor?: string;
@@ -58,18 +58,18 @@ const Icon = ({colorIcon = color.gray}: {colorIcon?: string}) => {
   );
 };
 
-export function FieldInput(props: FieldInputProps) {
+export function Field(props: FieldProps) {
   const {
     label,
     labelPreset = 'body2',
     labelColor,
     labelStyle,
     labelComponent,
-    // inputProps = defaultInputProps,
+    inputProps = defaultInputProps,
     isDisabled,
     inputStyle,
     baseInputStyle,
-    // errorMessage,
+    errorMessage,
     errorMessagePreset,
     errorMessageStyle,
     errorMessageProps,
@@ -77,33 +77,33 @@ export function FieldInput(props: FieldInputProps) {
     colorScheme = 'light',
     errorLines,
     style,
-    validate = 'default',
+    // validate = 'default',
     ...restProps
   } = props;
 
   const [showPassword, setShowPassword] = useState<boolean>(false);
-  const [isValid, setIsValid] = useState<boolean>(true);
-  const [text, onChangeText] = useState<string>('');
+  // const [isValid, setIsValid] = useState<boolean>(true);
+  // const [text, onChangeText] = useState<string>('');
 
   const initialColor = useMemo<string>(() => {
     return color.gray;
   }, []);
 
-  const errorMessage = useMemo(() => {
-    let message = '';
-    if (validate === 'default') {
-      message = 'Input at least 6 characters';
-    }
-    if (validate === 'email') {
-      message = 'Email not valid';
-    }
-    if (validate === 'password') {
-      message =
-        'Password min 8 letter, with at least a symbol, upper and lower case letters and a number';
-    }
+  // const errorMessage = useMemo(() => {
+  //   let message = '';
+  //   if (validate === 'default') {
+  //     message = 'Input at least 6 characters';
+  //   }
+  //   if (validate === 'email') {
+  //     message = 'Email not valid';
+  //   }
+  //   if (validate === 'password') {
+  //     message =
+  //       'Password min 8 letter, with at least a symbol, upper and lower case letters and a number';
+  //   }
 
-    return message;
-  }, [validate]);
+  //   return message;
+  // }, [validate]);
 
   const styles = [style, {paddingVertical: 8}];
   const labelStyles = [labelStyle, LABEL_STYLE];
@@ -116,32 +116,32 @@ export function FieldInput(props: FieldInputProps) {
     };
   };
 
-  const regexDefault = /^.{6,}$/;
-  const regexEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  const regexPassword = /^(?=.*\d)(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z]).{8,}$/;
+  // const regexDefault = /^.{6,}$/;
+  // const regexEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  // const regexPassword = /^(?=.*\d)(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z]).{8,}$/;
 
-  const handleChange = (value: string) => {
-    if (validate === 'default') {
-      setIsValid(regexDefault.test(value));
-    }
-    if (validate === 'email') {
-      setIsValid(regexEmail.test(value));
-    }
-    if (validate === 'password') {
-      setIsValid(regexPassword.test(value));
-    }
-    onChangeText(value);
-  };
+  // const handleChange = (value: string) => {
+  //   if (validate === 'default') {
+  //     setIsValid(regexDefault.test(value));
+  //   }
+  //   if (validate === 'email') {
+  //     setIsValid(regexEmail.test(value));
+  //   }
+  //   if (validate === 'password') {
+  //     setIsValid(regexPassword.test(value));
+  //   }
+  //   onChangeText(value);
+  // };
 
-  const inputProps = {
-    // testID: `${name}-input`,
-    // ref: input[name],
-    autoCorrect: false,
-    // onSubmitEditing: () => {},
-    value: text,
-    onChangeText: handleChange,
-    ...defaultInputProps,
-  };
+  // const inputProps = {
+  //   // testID: `${name}-input`,
+  //   // ref: input[name],
+  //   autoCorrect: false,
+  //   // onSubmitEditing: () => {},
+  //   value: text,
+  //   onChangeText: handleChange,
+  //   ...defaultInputProps,
+  // };
 
   return (
     <View {...restProps} style={styles}>
@@ -187,7 +187,7 @@ export function FieldInput(props: FieldInputProps) {
           isDisabled={isDisabled}
         />
       )}
-      {!isValid && errorMessage && (
+      {(errorMessageComponent || errorMessage) && (
         <>
           {errorMessageComponent || (
             <Text

@@ -1,7 +1,7 @@
 import React, {FC, useEffect, useState} from 'react';
-import {Text, ViewStyle} from 'react-native';
+import {ViewStyle} from 'react-native';
 import {Camera, useCameraDevices} from 'react-native-vision-camera';
-import {Button, FieldInput, Screen, Toast} from '../../components';
+import {Button, Screen, Toast} from '../../components';
 import {navigate} from '../../navigators';
 
 const ROOT: ViewStyle = {
@@ -34,9 +34,9 @@ export const ProfileScreen: FC = props => {
 
   return (
     <Screen preset="scroll" style={ROOT}>
-      <FieldInput label="Name" />
+      {/* <FieldInput label="Name" />
       <FieldInput label="Email" validate="email" />
-      <FieldInput label="Password" validate="password" />
+      <FieldInput label="Password" validate="password" /> */}
       <Button text="camera" onPress={onNavigate} />
       <Button preset="outline" text="show toast" onPress={onClose} />
       <Toast visible={isVisible} onBackdropPress={onClose} onCancel={onClose} />
