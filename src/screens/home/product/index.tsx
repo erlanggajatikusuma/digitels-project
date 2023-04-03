@@ -13,13 +13,13 @@ import {
   ViewStyle,
 } from 'react-native';
 import {Screen, Text} from '../../../components';
-import {color} from '../../../theme';
+import {color, PADDING_HORIZONTAL} from '../../../theme';
 
 const width = Dimensions.get('window').width;
 
 const ROOT: ViewStyle = {
   flexGrow: 1,
-  paddingHorizontal: 16,
+  //   paddingHorizontal: 16,
   //   backgroundColor: 'yellow',
 };
 
@@ -27,18 +27,25 @@ const CONTENT_CONTAINER: ViewStyle = {
   height: 240,
   flexGrow: 0,
   position: 'relative',
+  backgroundColor: color.white,
+};
+
+const ITEM_WRAPPER: ViewStyle = {
+  width: width,
+  height: 240,
+  backgroundColor: color.white,
 };
 
 const IMG: ImageStyle = {
   width: '100%',
-  height: 230,
+  height: '100%',
   resizeMode: 'cover',
 };
 
 const CONTROL: ViewStyle = {
   position: 'absolute',
-  top: 200,
-  width: width - 32,
+  top: 205,
+  width: width,
 };
 
 const DOT_CONTAINER: ViewStyle = {
@@ -61,26 +68,35 @@ const ACTIVE: ViewStyle = {
   backgroundColor: color.light100,
 };
 
+const CONTENT: ViewStyle = {
+  marginVertical: 10,
+  paddingHorizontal: 16,
+};
+
 const Item: FC<{info?: ListRenderItemInfo<any>}> = props => {
   const {info} = props;
   //   console.log('ITEM IMAGES ===> ', info);
 
   return (
-    <View
-      style={{
-        width: width - 32,
-        height: 230,
-        borderWidth: 2,
-        // borderColor: 'red',
-      }}>
+    <View style={ITEM_WRAPPER}>
       <Image source={{uri: info?.item}} style={IMG} />
     </View>
   );
 };
 
 export const ProductScreen: FC<CompositeScreenProps<any, any>> = props => {
-  const {params: {brand, category, description, images, stock} = {}} =
-    props.route;
+  const {
+    params: {
+      brand,
+      title,
+      price,
+      rating,
+      category,
+      description,
+      images,
+      stock,
+    } = {},
+  } = props.route;
   console.log('PARAMS ==> ', props.route.params);
 
   const [sliderState, setSliderState] = useState({
@@ -140,10 +156,31 @@ export const ProductScreen: FC<CompositeScreenProps<any, any>> = props => {
       <View style={CONTROL}>
         <Dots />
       </View>
-      <Text text={brand} />
-      <Text text={category} />
-      <Text text={description} />
-      <Text text={stock} />
+      <View style={CONTENT}>
+        <Text preset="display3" text={`$${price}`} />
+        <Text text={title} numberOfLines={2} ellipsizeMode="tail" />
+        {/* FLEX ROW */}
+        <Text text={stock} />
+        <Text text={rating} />
+        {/* DETAIL PRODUCT */}
+        <Text text="Detail Product" preset="title3" />
+        <Text text={category} />
+        <Text text="Product Description" preset="title3" />
+        <Text>
+          {description}. Lorem ipsum dolor sit amet, consectetur adipiscing
+          elit. Phasellus non ex sit amet nunc dignissim scelerisque id ac
+          lorem. Sed ipsum libero, finibus tincidunt consectetur a, rutrum id
+          ante. Orci varius natoque penatibus et magnis dis parturient montes,
+          nascetur ridiculus mus. Duis fringilla sit amet nisi sit amet varius.
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce nec
+          dapibus nibh. Quisque at ipsum nec lorem tempus finibus. Morbi congue
+          efficitur libero in imperdiet. Integer sed erat pharetra, posuere urna
+          quis, aliquam libero. Maecenas in faucibus nisl, ac facilisis ex.
+          Donec eget aliquam diam, eget pulvinar ipsum. Nulla tellus tellus,
+          suscipit eu libero a, volutpat bibendum dui. Proin sagittis turpis
+          vitae tortor pellentesque euismod.
+        </Text>
+      </View>
     </Screen>
   );
 };
