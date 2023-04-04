@@ -40,7 +40,7 @@ export const HEADER_TEXT: TextStyle = {
 
 const BUTTON: ViewStyle = {
   marginTop: 20,
-  // marginBottom: 35,
+  marginBottom: 35,
   height: 60,
   borderRadius: 70,
 };
@@ -117,12 +117,9 @@ export const LoginScreen: FC<CompositeScreenProps<any, any>> = props => {
 
   const handleNavigate = () => navigate('Login.Stack', 'Login.Register');
   const onSubmit = ({email, password}) => {
-    console.log('EMAIL ===> ', email);
-    console.log('PASSWORD ===> ', password);
     setIsLoading(true);
     signIn(email, password)
       .then(res => {
-        console.log('SIGNED ===> ', res.user);
         storage.save('user', res.user);
         setIsLoading(false);
         resetRoot(AppStack);
@@ -183,19 +180,19 @@ export const LoginScreen: FC<CompositeScreenProps<any, any>> = props => {
           style={BUTTON}
         />
       </FormProvider>
-      <View style={DIVIDER}>
+      {/* <View style={DIVIDER}>
         <View style={LINE} />
         <Text preset="body1" text="Login with" />
         <View style={LINE} />
-      </View>
-      <Button
+      </View> */}
+      {/* <Button
         preset="outline"
         style={[BUTTON, FLEX_ROW, {marginBottom: 35}]}
         // onPress={onSignin}
       >
         <GoogleLogo style={MARGIN} />
         <Text preset="medium4" text="Google" color={color.blueSecondary} />
-      </Button>
+      </Button> */}
       <View style={[FLEX_ROW, CENTER]}>
         <Text
           preset="body2"

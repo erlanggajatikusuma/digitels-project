@@ -11,8 +11,12 @@ import {
   Text,
   Toast as Modal,
 } from '../../../components';
+import {register} from '../../../config/firebase';
+import * as storage from '../../../utils/storage';
 
 import {color, PADDING_HORIZONTAL, ROOT} from '../../../theme';
+import {AppStack} from '../../../app';
+import {resetRoot} from '../../../navigators';
 
 export const TEXT_STYLE: TextStyle = {
   marginBottom: 15,
@@ -41,14 +45,9 @@ const HEADER_TEXT: TextStyle = {
 };
 
 export const RegisterScreen: FC<CompositeScreenProps<any, any>> = props => {
-  //   const {colorScheme = "light" || Appearance.getColorScheme()} = props;
-
-  //   useEffect(() => {
-  //     if (access_token) resetRoot(HomeStack);
-  //   }, [access_token]);
-
   const [isError, setIsError] = useState<boolean>(true);
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [isShow, setIsShow] = useState<boolean>(false);
 
   const input = {
     name: useRef<TextInput>(),
@@ -92,16 +91,19 @@ export const RegisterScreen: FC<CompositeScreenProps<any, any>> = props => {
     setIsError(!(isDirty && isValid));
   }, [isDirty, isValid]);
 
-  //   const onSubmit = data => console.log(data);
-
   const onSubmit = ({email, password}) => {
-    console.log('EMAIL ===> ', email);
-    console.log('PASSWORD ===> ', password);
     setIsLoading(true);
-    setTimeout(() => {
-      setIsLoading(false);
-    }, 3000);
-    // signIn(email, password);
+    register(email, password)
+      .then(res => {
+        setIsShow(true);
+        storage.save('user', res.user);
+        setIsLoading(false);
+        resetRoot(AppStack);
+      })
+      .catch(err => {
+        console.log('err', err);
+        setIsShow(true);
+      });
   };
 
   return (
@@ -175,6 +177,11 @@ export const RegisterScreen: FC<CompositeScreenProps<any, any>> = props => {
       <Modal visible={isLoading} style={LOADING}>
         <ActivityIndicator size="large" />
       </Modal>
+      <Modal
+        visible={isShow}
+        onCancel={() => setIsShow(false)}
+        onBackdropPress={() => setIsShow(false)}
+      />
     </Screen>
   );
 };

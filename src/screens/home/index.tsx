@@ -10,6 +10,7 @@ import {
   View,
   ViewStyle,
 } from 'react-native';
+import {SearchIcon} from '../../assets';
 import {Button, Input, Screen, Text} from '../../components';
 import {navigate} from '../../navigators';
 import {color} from '../../theme';
@@ -58,7 +59,7 @@ const LOADING: ViewStyle = {
 const FILTER: ViewStyle = {
   position: 'absolute',
   right: 30,
-  bottom: 70,
+  bottom: 130,
   backgroundColor: color.bgGray,
   alignItems: 'center',
   justifyContent: 'center',
@@ -66,6 +67,19 @@ const FILTER: ViewStyle = {
   height: 40,
   borderRadius: 20,
 };
+
+const INPUT_HEADER: ViewStyle = {
+  borderWidth: 1,
+  borderRadius: 20,
+  borderColor: color.light400,
+  paddingHorizontal: 22,
+};
+
+interface HeaderProps {
+  onChangeText?: (value: string) => void;
+  onSubmitEditing?: () => void;
+  onSubmit?: () => void;
+}
 
 const Item: FC<{info?: ListRenderItemInfo<any>}> = props => {
   const {info} = props;
@@ -88,6 +102,25 @@ const Item: FC<{info?: ListRenderItemInfo<any>}> = props => {
         <Text text={`rating: ${rating}`} />
       </View>
     </Button>
+  );
+};
+
+const Header: FC<HeaderProps> = props => {
+  const {onChangeText, onSubmit, onSubmitEditing} = props;
+  return (
+    <View style={{marginVertical: 20}}>
+      <Input
+        baseStyle={INPUT_HEADER}
+        onChangeText={onChangeText}
+        onSubmitEditing={onSubmitEditing}
+        placeholder="Search here..."
+        inputRightElement={
+          <Button preset="link" onPress={onSubmit}>
+            <SearchIcon />
+          </Button>
+        }
+      />
+    </View>
   );
 };
 
@@ -132,12 +165,20 @@ export const HomeScreen: FC = props => {
     }
   }, [products, sorted.length]);
 
+  const handleChangeText = value => {
+    setSearch([]);
+    onChangeText(value);
+  };
+
   const onSearch = () => {
     if (text.length) {
-      searchProduct(text.toLocaleLowerCase()).then(res => {
-        console.log('SEARCHED ===> ', res);
-        setSearch(res.products);
-      });
+      setLoading(true);
+      searchProduct(text.toLocaleLowerCase())
+        .then(res => {
+          setSearch(res.products);
+          setLoading(false);
+        })
+        .catch(err => setLoading(false));
     }
   };
 
@@ -148,12 +189,11 @@ export const HomeScreen: FC = props => {
 
   const keyExtractor = useCallback((item: {id: any}) => `${item.id}`, []);
 
-  console.log('LOADING....', loading);
   return (
     <Screen preset="fixed" safeAreaEdges={['top']} style={ROOT}>
-      <Input
-        value={text}
-        onChangeText={onChangeText}
+      <Header
+        onChangeText={handleChangeText}
+        onSubmit={onSearch}
         onSubmitEditing={onSearch}
       />
 
@@ -165,11 +205,12 @@ export const HomeScreen: FC = props => {
         showsVerticalScrollIndicator={false}
         onEndReached={getData}
         ItemSeparatorComponent={() => <View style={{height: 28}} />}
-        fadingEdgeLength={64}
+        contentContainerStyle={{paddingBottom: 130}}
+        fadingEdgeLength={32}
         ListEmptyComponent={
           (loading && (
             <View style={LOADING}>
-              <ActivityIndicator />
+              <ActivityIndicator size="large" />
             </View>
           )) || (
             <View style={LOADING}>

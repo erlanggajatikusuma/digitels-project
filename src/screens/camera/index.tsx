@@ -56,6 +56,8 @@ import {
 } from '../../theme';
 import {goBack} from '../../navigators';
 import RNFS from 'react-native-fs';
+import * as storage from '../../utils/storage';
+import {CompositeScreenProps} from '@react-navigation/native';
 // import {StatusBarBlurBackground} from "./status-bar-blur-background/status-bar-blur-background";
 
 const SCALE_FULL_ZOOM = 3;
@@ -120,12 +122,22 @@ const TEXT: TextStyle = {
   textAlign: 'center',
 };
 
+interface CameraProps {
+  onMediaCaptured?: (
+    media: PhotoFile | VideoFile,
+    type: 'photo' | 'video',
+  ) => void;
+}
+
 const ReanimatedCamera = Reanimated.createAnimatedComponent(Camera);
 Reanimated.addWhitelistedNativeProps({
   zoom: true,
 });
 
-export const CameraScreen: FC = props => {
+export const CameraScreen: FC<CompositeScreenProps<any, any>> = props => {
+  const {
+    params: {onMediaCaptured = () => {}},
+  } = props.route;
   const camera = useRef<Camera>(null);
 
   const [isCameraInitialized, setIsCameraInitialized] = useState<boolean>(true);
@@ -260,28 +272,29 @@ export const CameraScreen: FC = props => {
     setIsCameraInitialized(true);
   }, []);
 
-  const onMediaCaptured = useCallback(
-    async (media: PhotoFile | VideoFile, type: 'photo' | 'video') => {
-      console.log(`Media captured! ${JSON.stringify(media)}`);
-      let {path} = media; // extracted from PhotoFile returned from capture
-      const filePath = `file:/${path}`;
-      const pathSegments = filePath.split('/');
-      const fileName = pathSegments[pathSegments.length - 1];
-      const dir =
-        Platform.OS !== 'ios'
-          ? RNFS.DownloadDirectoryPath
-          : RNFS.DocumentDirectoryPath;
-      const moved = await RNFS.moveFile(path, `${dir}/${fileName}`)
-        .then(() => {
-          Alert.alert('Taken', 'Photo successfully saved', [{onPress: goBack}]);
-        })
-        .catch(() => {
-          Alert.alert('Failed', 'Photo failed to saved');
-        });
-      return moved;
-    },
-    [],
-  );
+  // const onMediaCaptured = useCallback(
+  //   async (media: PhotoFile | VideoFile, type: 'photo' | 'video') => {
+  //     console.log(`Media captured! ${JSON.stringify(media)}`);
+  //     let {path} = media; // extracted from PhotoFile returned from capture
+  //     storage.save('local', path);
+  //     const filePath = `file:/${path}`;
+  //     const pathSegments = filePath.split('/');
+  //     const fileName = pathSegments[pathSegments.length - 1];
+  //     const dir =
+  //       Platform.OS !== 'ios'
+  //         ? RNFS.DownloadDirectoryPath
+  //         : RNFS.DocumentDirectoryPath;
+  //     const moved = await RNFS.moveFile(path, `${dir}/${fileName}`)
+  //       .then(() => {
+  //         Alert.alert('Taken', 'Photo successfully saved', [{onPress: goBack}]);
+  //       })
+  //       .catch(() => {
+  //         Alert.alert('Failed', 'Photo failed to saved');
+  //       });
+  //     return moved;
+  //   },
+  //   [],
+  // );
 
   const onFlipCameraPressed = useCallback(() => {
     setCameraPosition(p => (p === 'back' ? 'front' : 'back'));

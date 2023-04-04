@@ -57,6 +57,7 @@ const AppNavigator_ = () => {
         options={{
           title: 'Profile',
           headerTintColor: color.light100,
+          headerTitleAlign: 'center',
           headerStyle: {backgroundColor: color.primary},
         }}
       />
@@ -70,7 +71,7 @@ const App = (props: NavigationProps) => {
       <Stack.Navigator
         screenOptions={{
           headerBackTitleVisible: false,
-          headerTitleAlign: 'left',
+          headerTitleAlign: 'center',
         }}
         // initialRouteName="App.Stack"
         initialRouteName="Login.Stack">
@@ -90,7 +91,9 @@ const App = (props: NavigationProps) => {
           }}>
           {HomeNavigator}
         </Stack.Screen>
-        <Stack.Screen name="Profile.Stack">{ProfileNavigator}</Stack.Screen>
+        <Stack.Screen name="Profile.Stack" options={{headerShown: false}}>
+          {ProfileNavigator}
+        </Stack.Screen>
       </Stack.Navigator>
     </NavigationContainer>
   );

@@ -11,7 +11,8 @@
     "device": "emulator -avd Pixel",
     "clean:android": "cd android/ && ./gradlew clean",
     "clean:ios": "cd ios && xcodebuild clean && cd ../",
-    "pod": "cd ios && pod install"
+    "pod": "cd ios && pod install",
+    "build:android": "cd android/ && ./gradlew clean && ./gradlew app:assembleRelease"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.0.0",
